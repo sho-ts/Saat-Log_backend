@@ -6,7 +6,13 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { UsersModule } from './users/users.module';
+import { TeamsModule } from './teams/teams.module';
+import { TasksModule } from './tasks/tasks.module';
+import { DayTasksModule } from './day-tasks/day-tasks.module';
+import { Team } from './teams/team.model';
+import { Task } from './tasks/task.model';
 import { User } from './users/user.model';
+import { DayTask } from './day-tasks/day-task.model';
 
 @Module({
   imports: [
@@ -17,18 +23,21 @@ import { User } from './users/user.model';
         path: join(process.cwd(), 'src/graphql.ts'),
       },
     }),
-    UsersModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'mysql',
       username: 'root',
       password: 'root',
       database: 'database',
-      entities: [User],
+      entities: [User, Team, Task, DayTask],
       synchronize: true,
     }),
+    UsersModule,
+    TeamsModule,
+    TasksModule,
+    DayTasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
