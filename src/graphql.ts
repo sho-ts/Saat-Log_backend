@@ -10,7 +10,10 @@
 export interface User {
     userId: string;
     name: string;
+    photoUrl: string;
     createdAt: DateTime;
+    updatedAt: DateTime;
+    deleteAt: DateTime;
 }
 
 export interface IQuery {

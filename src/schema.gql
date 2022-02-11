@@ -3,9 +3,12 @@
 # ------------------------------------------------------
 
 type User {
-  userId: ID!
+  userId: String!
   name: String!
+  photoUrl: String!
   createdAt: DateTime!
+  updatedAt: DateTime!
+  deleteAt: DateTime!
 }
 
 """
