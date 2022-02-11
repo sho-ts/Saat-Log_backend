@@ -8,7 +8,7 @@ type User {
   photoUrl: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  deleteAt: DateTime!
+  deletedAt: DateTime!
 }
 
 """

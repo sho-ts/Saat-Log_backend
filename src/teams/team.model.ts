@@ -33,5 +33,5 @@ export class Team {
 
   @DeleteDateColumn()
   @Field()
-  deleteAt: Date;
+  deletedAt: Date;
 }

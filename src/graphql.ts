@@ -13,7 +13,7 @@ export interface User {
     photoUrl: string;
     createdAt: DateTime;
     updatedAt: DateTime;
-    deleteAt: DateTime;
+    deletedAt: DateTime;
 }
 
 export interface IQuery {

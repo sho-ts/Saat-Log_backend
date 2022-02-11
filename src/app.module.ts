@@ -7,10 +7,12 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { UsersModule } from './users/users.module';
 import { TeamsModule } from './teams/teams.module';
-import { User } from './users/user.model';
+import { TasksModule } from './tasks/tasks.module';
+import { DayTasksModule } from './day-tasks/day-tasks.module';
 import { Team } from './teams/team.model';
 import { Task } from './tasks/task.model';
-import { TasksModule } from './tasks/tasks.module';
+import { User } from './users/user.model';
+import { DayTask } from './day-tasks/day-task.model';
 
 @Module({
   imports: [
@@ -27,12 +29,13 @@ import { TasksModule } from './tasks/tasks.module';
       username: 'root',
       password: 'root',
       database: 'database',
-      entities: [User, Team, Task],
+      entities: [User, Team, Task, DayTask],
       synchronize: true,
     }),
     UsersModule,
     TeamsModule,
     TasksModule,
+    DayTasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

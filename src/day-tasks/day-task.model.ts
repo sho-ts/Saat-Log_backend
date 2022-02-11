@@ -7,29 +7,45 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   ManyToOne,
-  OneToMany,
   JoinColumn,
 } from 'typeorm';
 import { User } from '../users/user.model';
-import { DayTask } from '../day-tasks/day-task.model';
+import { Task } from '../tasks/task.model';
 
 @ObjectType()
 @Entity()
-export class Task {
+export class DayTask {
   @PrimaryGeneratedColumn('uuid')
   @Field()
-  taskId: string;
+  dayTaskId: string;
 
-  @Column()
-  @Field()
-  name: string;
+  @ManyToOne(type => Task, task => task.dayTasks)
+  @JoinColumn({ name: 'taskId' })
+  taskId: Task;
 
   @ManyToOne(type => User, (user) => user.userId)
   @JoinColumn({ name: 'userId' })
   userId: User;
 
-  @OneToMany(type => DayTask, dayTask => dayTask.taskId)
-  dayTasks: DayTask[];
+  @Column({ default: false })
+  @Field()
+  isActive: boolean;
+
+  @Column()
+  @Field()
+  progress: number;
+
+  @Column()
+  @Field()
+  target: number;
+
+  @Column()
+  @Field()
+  day: Date;
+
+  @Column()
+  @Field()
+  startedAt: Date;
 
   @CreateDateColumn()
   @Field()

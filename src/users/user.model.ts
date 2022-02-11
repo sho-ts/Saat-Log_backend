@@ -9,6 +9,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Task } from '../tasks/task.model';
+import { DayTask } from '../day-tasks/day-task.model';
 
 @ObjectType()
 @Entity()
@@ -28,6 +29,9 @@ export class User {
   @OneToMany(type => Task, task => task.userId)
   tasks: Task[];
 
+  @OneToMany(type => DayTask, dayTask => dayTask.userId)
+  dayTasks: DayTask[];
+
   @CreateDateColumn()
   @Field()
   createdAt: Date;
@@ -38,5 +42,5 @@ export class User {
 
   @DeleteDateColumn()
   @Field()
-  deleteAt: Date;
+  deletedAt: Date;
 }
