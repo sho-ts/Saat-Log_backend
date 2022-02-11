@@ -6,27 +6,25 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-  OneToMany,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
-import { Task } from '../tasks/task.model';
+import { User } from '../users/user.model';
 
 @ObjectType()
 @Entity()
-export class User {
+export class Task {
   @PrimaryGeneratedColumn('uuid')
   @Field()
-  userId: string;
+  taskId: string;
 
   @Column()
   @Field()
   name: string;
 
-  @Column({ nullable: true })
-  @Field()
-  photoUrl?: string;
-
-  @OneToMany(type => Task, task => task.userId)
-  tasks: Task[];
+  @ManyToOne(type => User, (user) => user.userId)
+  @JoinColumn({ name: 'userId' })
+  userId: User;
 
   @CreateDateColumn()
   @Field()
