@@ -7,6 +7,12 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export interface UserInput {
+    userId: string;
+    name: string;
+    photoURL?: Nullable<string>;
+}
+
 export interface User {
     userId: string;
     name: string;
@@ -18,6 +24,10 @@ export interface User {
 
 export interface IQuery {
     getUser(id: number): User | Promise<User>;
+}
+
+export interface IMutation {
+    createUser(params: UserInput): User | Promise<User>;
 }
 
 export type DateTime = any;

@@ -19,3 +19,13 @@ scalar DateTime
 type Query {
   getUser(id: Int!): User!
 }
+
+type Mutation {
+  createUser(params: UserInput!): User!
+}
+
+input UserInput {
+  userId: String!
+  name: String!
+  photoURL: String
+}
