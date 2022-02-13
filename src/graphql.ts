@@ -23,11 +23,13 @@ export interface User {
 }
 
 export interface IQuery {
-    getUser(id: number): User | Promise<User>;
+    getUser(userId: string): User | Promise<User>;
 }
 
 export interface IMutation {
     createUser(params: UserInput): User | Promise<User>;
+    updateUser(params: UserInput): User | Promise<User>;
+    deleteUser(userId: string): boolean | Promise<boolean>;
 }
 
 export type DateTime = any;
