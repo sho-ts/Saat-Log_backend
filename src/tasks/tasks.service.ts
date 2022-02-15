@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Task } from './task.model';
-import { AddTaskInput } from './dto/add-task.input';
+import { EditTaskInput } from './dto/edit-task.input';
 import { GetTaskInput } from './dto/get-task.input';
 import { GetAllTaskInput } from './dto/get-all-task.input';
 
@@ -29,7 +29,19 @@ export class TasksService {
     });
   }
 
-  async create(params: AddTaskInput) {
+  async update(params: EditTaskInput) {
+    const task = await this.tasksRepository.findOne({
+      userId: params.userId,
+      taskId: params.taskId,
+      deletedAt: null
+    });
+
+    task.name = params.name;
+
+    return this.tasksRepository.save(task);
+  }
+
+  async create(params: EditTaskInput) {
     const task = this.tasksRepository.create({
       userId: params.userId,
       taskId: params.taskId,
