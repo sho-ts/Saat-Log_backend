@@ -26,7 +26,7 @@ export class Task {
 
   @ManyToOne(type => User, (user) => user.userId)
   @JoinColumn({ name: 'userId' })
-  userId: User;
+  userId: string;
 
   @OneToMany(type => DayTask, dayTask => dayTask.taskId)
   dayTasks: DayTask[];
