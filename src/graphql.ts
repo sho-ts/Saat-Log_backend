@@ -23,7 +23,7 @@ export interface UserInput {
     photoURL?: Nullable<string>;
 }
 
-export interface AddTaskInput {
+export interface EditTaskInput {
     taskId: string;
     userId: string;
     name: string;
@@ -56,7 +56,8 @@ export interface IMutation {
     createUser(params: UserInput): User | Promise<User>;
     updateUser(params: UserInput): User | Promise<User>;
     deleteUser(userId: string): boolean | Promise<boolean>;
-    addTask(params: AddTaskInput): Task | Promise<Task>;
+    addTask(params: EditTaskInput): Task | Promise<Task>;
+    updateTask(params: EditTaskInput): Task | Promise<Task>;
     deleteTask(params: GetTaskInput): boolean | Promise<boolean>;
 }
 

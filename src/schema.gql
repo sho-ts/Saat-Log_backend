@@ -44,7 +44,8 @@ type Mutation {
   createUser(params: UserInput!): User!
   updateUser(params: UserInput!): User!
   deleteUser(userId: String!): Boolean!
-  addTask(params: AddTaskInput!): Task!
+  addTask(params: EditTaskInput!): Task!
+  updateTask(params: EditTaskInput!): Task!
   deleteTask(params: GetTaskInput!): Boolean!
 }
 
@@ -54,7 +55,7 @@ input UserInput {
   photoURL: String
 }
 
-input AddTaskInput {
+input EditTaskInput {
   taskId: String!
   userId: String!
   name: String!
