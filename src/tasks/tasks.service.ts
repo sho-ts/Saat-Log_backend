@@ -21,8 +21,12 @@ export class TasksService {
     })
   }
 
-  async readAll(userId: string) {
-
+  async readAll(params: GetAllTaskInput) {
+    return await this.tasksRepository.find({
+      where: { userId: params.userId, },
+      take: 10,
+      skip: params.paged ? params.paged - 1 : 0
+    });
   }
 
   async create(params: AddTaskInput) {
@@ -31,15 +35,22 @@ export class TasksService {
       taskId: params.taskId,
       name: params.name
     });
-    
+
     return await this.tasksRepository.save(task);
   }
 
-  async update() {
+  async delete(params: GetTaskInput) {
+    const task = await this.tasksRepository.findOne({
+      userId: params.userId,
+      taskId: params.taskId,
+      deletedAt: false,
+    });
 
-  }
+    if (!task) return false;
 
-  async delete(userId: string, postId: string) {
+    task.deletedAt = new Date();
+    await this.tasksRepository.save(task);
 
+    return true;
   }
 }

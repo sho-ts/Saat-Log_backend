@@ -15,8 +15,8 @@ export class TasksResolver {
   }
 
   @Query(returns => [Task])
-  async getTasks() {
-
+  async getAllTasks(@Args('params') params: GetAllTaskInput) {
+    return await this.tasksService.readAll(params);
   }
 
   @Mutation(returns => Task)
@@ -25,7 +25,7 @@ export class TasksResolver {
   }
 
   @Mutation(returns => Boolean)
-  async deleteTask() {
-
+  async deleteTask(@Args('params') params: GetTaskInput) {
+    return await this.tasksService.delete(params);
   }
 }
