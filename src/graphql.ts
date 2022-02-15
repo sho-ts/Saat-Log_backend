@@ -12,6 +12,11 @@ export interface GetTaskInput {
     userId: string;
 }
 
+export interface GetAllTaskInput {
+    paged?: Nullable<number>;
+    userId: string;
+}
+
 export interface UserInput {
     userId: string;
     name: string;
@@ -44,7 +49,7 @@ export interface User {
 export interface IQuery {
     getUser(userId: string): User | Promise<User>;
     getTask(params: GetTaskInput): Task | Promise<Task>;
-    getTasks(): Task[] | Promise<Task[]>;
+    getAllTasks(params: GetAllTaskInput): Task[] | Promise<Task[]>;
 }
 
 export interface IMutation {
@@ -52,7 +57,7 @@ export interface IMutation {
     updateUser(params: UserInput): User | Promise<User>;
     deleteUser(userId: string): boolean | Promise<boolean>;
     addTask(params: AddTaskInput): Task | Promise<Task>;
-    deleteTask(): boolean | Promise<boolean>;
+    deleteTask(params: GetTaskInput): boolean | Promise<boolean>;
 }
 
 export type DateTime = any;

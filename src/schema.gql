@@ -27,11 +27,16 @@ type User {
 type Query {
   getUser(userId: String!): User!
   getTask(params: GetTaskInput!): Task!
-  getTasks: [Task!]!
+  getAllTasks(params: GetAllTaskInput!): [Task!]!
 }
 
 input GetTaskInput {
   taskId: String!
+  userId: String!
+}
+
+input GetAllTaskInput {
+  paged: Int
   userId: String!
 }
 
@@ -40,7 +45,7 @@ type Mutation {
   updateUser(params: UserInput!): User!
   deleteUser(userId: String!): Boolean!
   addTask(params: AddTaskInput!): Task!
-  deleteTask: Boolean!
+  deleteTask(params: GetTaskInput!): Boolean!
 }
 
 input UserInput {
