@@ -21,6 +21,7 @@ export class DayTask {
 
   @ManyToOne(type => Task, task => task.dayTasks)
   @JoinColumn({ name: 'taskId' })
+  @Field()
   taskId: string;
 
   @ManyToOne(type => User, (user) => user.userId)
@@ -58,4 +59,7 @@ export class DayTask {
   @DeleteDateColumn()
   @Field()
   deletedAt: Date;
+
+  @Field(() => Task, { nullable: true })
+  task?: Task;
 }
