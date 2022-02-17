@@ -29,6 +29,28 @@ export interface EditTaskInput {
     name: string;
 }
 
+export interface AddDayTaskInput {
+    dayTaskId: string;
+    taskId: string;
+    userId: string;
+    day: DateTime;
+    target?: Nullable<number>;
+}
+
+export interface DayTask {
+    dayTaskId: string;
+    taskId: string;
+    isActive: boolean;
+    progress: number;
+    target: number;
+    day: DateTime;
+    startedAt: DateTime;
+    createdAt: DateTime;
+    updatedAt: DateTime;
+    deletedAt: DateTime;
+    task?: Nullable<Task>;
+}
+
 export interface Task {
     taskId: string;
     name: string;
@@ -50,6 +72,8 @@ export interface IQuery {
     getUser(userId: string): User | Promise<User>;
     getTask(params: GetTaskInput): Task | Promise<Task>;
     getAllTasks(params: GetAllTaskInput): Task[] | Promise<Task[]>;
+    getDayTask(): DayTask | Promise<DayTask>;
+    getAllDayTasks(userId: string): DayTask[] | Promise<DayTask[]>;
 }
 
 export interface IMutation {
@@ -59,6 +83,7 @@ export interface IMutation {
     addTask(params: EditTaskInput): Task | Promise<Task>;
     updateTask(params: EditTaskInput): Task | Promise<Task>;
     deleteTask(params: GetTaskInput): boolean | Promise<boolean>;
+    addDayTask(params: AddDayTaskInput): DayTask | Promise<DayTask>;
 }
 
 export type DateTime = any;
