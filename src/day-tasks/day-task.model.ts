@@ -21,21 +21,22 @@ export class DayTask {
 
   @ManyToOne(type => Task, task => task.dayTasks)
   @JoinColumn({ name: 'taskId' })
-  taskId: Task;
+  @Field()
+  taskId: string;
 
   @ManyToOne(type => User, (user) => user.userId)
   @JoinColumn({ name: 'userId' })
-  userId: User;
+  userId: string;
 
   @Column({ default: false })
   @Field()
   isActive: boolean;
 
-  @Column()
+  @Column({ default: 0 })
   @Field()
   progress: number;
 
-  @Column()
+  @Column({ default: 0 })
   @Field()
   target: number;
 
@@ -43,7 +44,7 @@ export class DayTask {
   @Field()
   day: Date;
 
-  @Column()
+  @Column({ nullable: true })
   @Field()
   startedAt: Date;
 
@@ -58,4 +59,7 @@ export class DayTask {
   @DeleteDateColumn()
   @Field()
   deletedAt: Date;
+
+  @Field(() => Task, { nullable: true })
+  task?: Task;
 }
