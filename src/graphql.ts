@@ -48,7 +48,7 @@ export interface DayTask {
     createdAt: DateTime;
     updatedAt: DateTime;
     deletedAt: DateTime;
-    task?: Nullable<Task>;
+    task: Task;
 }
 
 export interface Task {
