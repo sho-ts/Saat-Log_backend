@@ -60,6 +60,6 @@ export class DayTask {
   @Field()
   deletedAt: Date;
 
-  @Field(() => Task, { nullable: true })
-  task?: Task;
+  @Field(() => Task)
+  task: Task;
 }

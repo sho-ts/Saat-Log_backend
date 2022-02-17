@@ -13,7 +13,7 @@ type DayTask {
   createdAt: DateTime!
   updatedAt: DateTime!
   deletedAt: DateTime!
-  task: Task
+  task: Task!
 }
 
 """
