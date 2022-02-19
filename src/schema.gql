@@ -8,7 +8,7 @@ type DayTask {
   isActive: Boolean!
   progress: Float!
   target: Float!
-  day: DateTime!
+  date: DateTime!
   startedAt: DateTime!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -42,8 +42,8 @@ type Query {
   getUser(userId: String!): User!
   getTask(params: GetTaskInput!): Task!
   getAllTasks(params: GetAllTaskInput!): [Task!]!
-  getDayTask: DayTask!
-  getAllDayTasks(userId: String!): [DayTask!]!
+  getDayTask(params: GetDayTaskInput!): DayTask!
+  getAllDayTasks(params: GetAllDayTaskInput!): [DayTask!]!
 }
 
 input GetTaskInput {
@@ -56,6 +56,19 @@ input GetAllTaskInput {
   userId: String!
 }
 
+input GetDayTaskInput {
+  dayTaskId: String!
+  userId: String!
+}
+
+input GetAllDayTaskInput {
+  userId: String!
+  paged: Float
+  year: Int!
+  month: Int!
+  day: Int!
+}
+
 type Mutation {
   createUser(params: UserInput!): User!
   updateUser(params: UserInput!): User!
@@ -64,6 +77,7 @@ type Mutation {
   updateTask(params: EditTaskInput!): Task!
   deleteTask(params: GetTaskInput!): Boolean!
   addDayTask(params: AddDayTaskInput!): DayTask!
+  deleteDayTask(params: GetDayTaskInput!): Boolean!
 }
 
 input UserInput {
@@ -82,6 +96,8 @@ input AddDayTaskInput {
   dayTaskId: String!
   taskId: String!
   userId: String!
-  day: DateTime!
-  target: Float
+  year: Int!
+  month: Int!
+  day: Int!
+  target: Int
 }
