@@ -17,6 +17,19 @@ export interface GetAllTaskInput {
     userId: string;
 }
 
+export interface GetDayTaskInput {
+    dayTaskId: string;
+    userId: string;
+}
+
+export interface GetAllDayTaskInput {
+    userId: string;
+    paged?: Nullable<number>;
+    year: number;
+    month: number;
+    day: number;
+}
+
 export interface UserInput {
     userId: string;
     name: string;
@@ -33,7 +46,9 @@ export interface AddDayTaskInput {
     dayTaskId: string;
     taskId: string;
     userId: string;
-    day: DateTime;
+    year: number;
+    month: number;
+    day: number;
     target?: Nullable<number>;
 }
 
@@ -43,7 +58,7 @@ export interface DayTask {
     isActive: boolean;
     progress: number;
     target: number;
-    day: DateTime;
+    date: DateTime;
     startedAt: DateTime;
     createdAt: DateTime;
     updatedAt: DateTime;
@@ -72,8 +87,8 @@ export interface IQuery {
     getUser(userId: string): User | Promise<User>;
     getTask(params: GetTaskInput): Task | Promise<Task>;
     getAllTasks(params: GetAllTaskInput): Task[] | Promise<Task[]>;
-    getDayTask(): DayTask | Promise<DayTask>;
-    getAllDayTasks(userId: string): DayTask[] | Promise<DayTask[]>;
+    getDayTask(params: GetDayTaskInput): DayTask | Promise<DayTask>;
+    getAllDayTasks(params: GetAllDayTaskInput): DayTask[] | Promise<DayTask[]>;
 }
 
 export interface IMutation {
@@ -84,6 +99,7 @@ export interface IMutation {
     updateTask(params: EditTaskInput): Task | Promise<Task>;
     deleteTask(params: GetTaskInput): boolean | Promise<boolean>;
     addDayTask(params: AddDayTaskInput): DayTask | Promise<DayTask>;
+    deleteDayTask(params: GetDayTaskInput): boolean | Promise<boolean>;
 }
 
 export type DateTime = any;

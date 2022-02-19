@@ -1,15 +1,12 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
-export class AddDayTaskInput {
+export class GetAllDayTaskInput {
   @Field()
-  dayTaskId: string;
+  userId: string
 
-  @Field()
-  taskId: string;
-
-  @Field()
-  userId: string;
+  @Field({ nullable: true })
+  paged?: number;
 
   @Field(type => Int)
   year: number;
@@ -19,7 +16,4 @@ export class AddDayTaskInput {
 
   @Field(type => Int)
   day: number;
-
-  @Field(type => Int, { nullable: true })
-  target?: number;
 }
