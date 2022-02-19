@@ -42,7 +42,7 @@ export class DayTask {
 
   @Column()
   @Field()
-  day: Date;
+  date: Date;
 
   @Column({ nullable: true })
   @Field()
