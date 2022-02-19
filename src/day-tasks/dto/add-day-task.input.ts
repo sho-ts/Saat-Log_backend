@@ -11,9 +11,15 @@ export class AddDayTaskInput {
   @Field()
   userId: string;
 
-  @Field()
-  day: Date;
+  @Field(type => Int)
+  year: number;
 
-  @Field({nullable: true})
+  @Field(type => Int)
+  month: number;
+
+  @Field(type => Int)
+  day: number;
+
+  @Field(type => Int, { nullable: true })
   target?: number;
 }
