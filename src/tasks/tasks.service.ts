@@ -2,9 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Task } from './task.model';
-import { EditTaskInput } from './dto/edit-task.input';
+import { CreateTaskInput } from './dto/create-task.input';
+import { UpdateTaskInput } from './dto/update-task.input';
 import { GetTaskInput } from './dto/get-task.input';
 import { GetAllTaskInput } from './dto/get-all-task.input';
+import { v4 } from 'uuid';
 
 @Injectable()
 export class TasksService {
@@ -29,7 +31,7 @@ export class TasksService {
     });
   }
 
-  async update(params: EditTaskInput) {
+  async update(params: UpdateTaskInput) {
     const task = await this.tasksRepository.findOne({
       userId: params.userId,
       taskId: params.taskId,
@@ -41,10 +43,10 @@ export class TasksService {
     return this.tasksRepository.save(task);
   }
 
-  async create(params: EditTaskInput) {
+  async create(params: CreateTaskInput) {
     const task = this.tasksRepository.create({
       userId: params.userId,
-      taskId: params.taskId,
+      taskId: v4(),
       name: params.name
     });
 

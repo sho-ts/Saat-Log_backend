@@ -1,7 +1,7 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { DayTasksService } from './day-tasks.service';
 import { DayTask } from './day-task.model';
-import { AddDayTaskInput } from './dto/add-day-task.input';
+import { CreateDayTaskInput } from './dto/create-day-task.input';
 import { GetDayTaskInput } from './dto/get-day-task.input';
 import { GetAllDayTaskInput } from './dto/get-all-day-task.input';
 
@@ -20,7 +20,7 @@ export class DayTasksResolver {
   }
 
   @Mutation(returns => DayTask)
-  async addDayTask(@Args('params') params: AddDayTaskInput) {
+  async addDayTask(@Args('params') params: CreateDayTaskInput) {
     return await this.dayTasksService.create(params);
   }
 
