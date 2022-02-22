@@ -1,7 +1,8 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Task } from './task.model';
 import { TasksService } from './tasks.service';
-import { EditTaskInput } from './dto/edit-task.input';
+import { CreateTaskInput } from './dto/create-task.input';
+import { UpdateTaskInput } from './dto/update-task.input';
 import { GetTaskInput } from './dto/get-task.input';
 import { GetAllTaskInput } from './dto/get-all-task.input';
 
@@ -20,12 +21,12 @@ export class TasksResolver {
   }
 
   @Mutation(returns => Task)
-  async addTask(@Args('params') params: EditTaskInput) {
+  async addTask(@Args('params') params: CreateTaskInput) {
     return await this.tasksService.create(params);
   }
 
   @Mutation(returns => Task)
-  async updateTask(@Args('params') params: EditTaskInput) {
+  async updateTask(@Args('params') params: UpdateTaskInput) {
     return await this.tasksService.update(params);
   }
 

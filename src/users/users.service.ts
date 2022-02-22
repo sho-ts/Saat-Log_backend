@@ -2,7 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.model';
-import { UserInput } from './dto/user.input';
+import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserInput } from './dto/update-user.input';
+import { v4 } from 'uuid';
 
 @Injectable()
 export class UsersService {
@@ -18,13 +20,16 @@ export class UsersService {
     });
   }
 
-  async create(params: UserInput) {
-    const user = this.usersRepository.create(params);
+  async create(params: CreateUserInput) {
+    const user = this.usersRepository.create({
+      ...params,
+      userId: v4()
+    });
 
     return await this.usersRepository.save(user);
   }
 
-  async update(params: UserInput) {
+  async update(params: UpdateUserInput) {
     const user = await this.usersRepository.findOne(params.userId);
     user.name = user.name;
     user.photoUrl = params.photoURL ?? user.photoUrl;

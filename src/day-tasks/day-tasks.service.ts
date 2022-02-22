@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DayTask } from './day-task.model';
-import { AddDayTaskInput } from './dto/add-day-task.input';
+import { CreateDayTaskInput } from './dto/create-day-task.input';
 import { GetDayTaskInput } from './dto/get-day-task.input';
 import { GetAllDayTaskInput } from './dto/get-all-day-task.input';
+import { v4 } from 'uuid';
 
 @Injectable()
 export class DayTasksService {
@@ -39,9 +40,9 @@ export class DayTasksService {
       .getMany();
   }
 
-  async create(params: AddDayTaskInput) {
+  async create(params: CreateDayTaskInput) {
     const dayTask = this.dayTasksRepository.create({
-      dayTaskId: params.dayTaskId,
+      dayTaskId: v4(),
       userId: params.userId,
       taskId: params.taskId,
       date: new Date(params.year, params.month - 1, params.day),

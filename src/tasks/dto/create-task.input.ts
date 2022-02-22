@@ -1,10 +1,7 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
-export class EditTaskInput {
-  @Field()
-  taskId: string;
-
+export class CreateTaskInput {
   @Field()
   userId: string;
 

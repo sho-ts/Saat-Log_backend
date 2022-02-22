@@ -1,10 +1,7 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
-export class AddDayTaskInput {
-  @Field()
-  dayTaskId: string;
-
+export class CreateDayTaskInput {
   @Field()
   taskId: string;
 
