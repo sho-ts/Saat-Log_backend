@@ -30,20 +30,29 @@ export interface GetAllDayTaskInput {
     day: number;
 }
 
-export interface UserInput {
+export interface CreateUserInput {
+    name: string;
+    photoURL?: Nullable<string>;
+}
+
+export interface UpdateUserInput {
     userId: string;
     name: string;
     photoURL?: Nullable<string>;
 }
 
-export interface EditTaskInput {
+export interface CreateTaskInput {
+    userId: string;
+    name: string;
+}
+
+export interface UpdateTaskInput {
     taskId: string;
     userId: string;
     name: string;
 }
 
-export interface AddDayTaskInput {
-    dayTaskId: string;
+export interface CreateDayTaskInput {
     taskId: string;
     userId: string;
     year: number;
@@ -92,13 +101,13 @@ export interface IQuery {
 }
 
 export interface IMutation {
-    createUser(params: UserInput): User | Promise<User>;
-    updateUser(params: UserInput): User | Promise<User>;
+    createUser(params: CreateUserInput): User | Promise<User>;
+    updateUser(params: UpdateUserInput): User | Promise<User>;
     deleteUser(userId: string): boolean | Promise<boolean>;
-    addTask(params: EditTaskInput): Task | Promise<Task>;
-    updateTask(params: EditTaskInput): Task | Promise<Task>;
+    addTask(params: CreateTaskInput): Task | Promise<Task>;
+    updateTask(params: UpdateTaskInput): Task | Promise<Task>;
     deleteTask(params: GetTaskInput): boolean | Promise<boolean>;
-    addDayTask(params: AddDayTaskInput): DayTask | Promise<DayTask>;
+    addDayTask(params: CreateDayTaskInput): DayTask | Promise<DayTask>;
     deleteDayTask(params: GetDayTaskInput): boolean | Promise<boolean>;
 }
 

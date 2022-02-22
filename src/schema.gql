@@ -70,30 +70,39 @@ input GetAllDayTaskInput {
 }
 
 type Mutation {
-  createUser(params: UserInput!): User!
-  updateUser(params: UserInput!): User!
+  createUser(params: CreateUserInput!): User!
+  updateUser(params: UpdateUserInput!): User!
   deleteUser(userId: String!): Boolean!
-  addTask(params: EditTaskInput!): Task!
-  updateTask(params: EditTaskInput!): Task!
+  addTask(params: CreateTaskInput!): Task!
+  updateTask(params: UpdateTaskInput!): Task!
   deleteTask(params: GetTaskInput!): Boolean!
-  addDayTask(params: AddDayTaskInput!): DayTask!
+  addDayTask(params: CreateDayTaskInput!): DayTask!
   deleteDayTask(params: GetDayTaskInput!): Boolean!
 }
 
-input UserInput {
+input CreateUserInput {
+  name: String!
+  photoURL: String
+}
+
+input UpdateUserInput {
   userId: String!
   name: String!
   photoURL: String
 }
 
-input EditTaskInput {
+input CreateTaskInput {
+  userId: String!
+  name: String!
+}
+
+input UpdateTaskInput {
   taskId: String!
   userId: String!
   name: String!
 }
 
-input AddDayTaskInput {
-  dayTaskId: String!
+input CreateDayTaskInput {
   taskId: String!
   userId: String!
   year: Int!
