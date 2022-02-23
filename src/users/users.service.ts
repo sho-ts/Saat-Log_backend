@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from './user.model';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { v4 } from 'uuid';
+import { ulid } from 'ulid';
 
 @Injectable()
 export class UsersService {
@@ -23,7 +23,7 @@ export class UsersService {
   async create(params: CreateUserInput) {
     const user = this.usersRepository.create({
       ...params,
-      userId: v4()
+      userId: ulid()
     });
 
     return await this.usersRepository.save(user);

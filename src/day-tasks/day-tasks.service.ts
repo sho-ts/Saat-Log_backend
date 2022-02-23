@@ -5,7 +5,7 @@ import { DayTask } from './day-task.model';
 import { CreateDayTaskInput } from './dto/create-day-task.input';
 import { GetDayTaskInput } from './dto/get-day-task.input';
 import { GetAllDayTaskInput } from './dto/get-all-day-task.input';
-import { v4 } from 'uuid';
+import { ulid } from 'ulid';
 
 @Injectable()
 export class DayTasksService {
@@ -42,7 +42,7 @@ export class DayTasksService {
 
   async create(params: CreateDayTaskInput) {
     const dayTask = this.dayTasksRepository.create({
-      dayTaskId: v4(),
+      dayTaskId: ulid(),
       userId: params.userId,
       taskId: params.taskId,
       date: new Date(params.year, params.month - 1, params.day),
