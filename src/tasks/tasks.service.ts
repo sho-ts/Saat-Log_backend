@@ -6,7 +6,7 @@ import { CreateTaskInput } from './dto/create-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
 import { GetTaskInput } from './dto/get-task.input';
 import { GetAllTaskInput } from './dto/get-all-task.input';
-import { v4 } from 'uuid';
+import { ulid } from 'ulid';
 
 @Injectable()
 export class TasksService {
@@ -46,7 +46,7 @@ export class TasksService {
   async create(params: CreateTaskInput) {
     const task = this.tasksRepository.create({
       userId: params.userId,
-      taskId: v4(),
+      taskId: ulid(),
       name: params.name
     });
 
