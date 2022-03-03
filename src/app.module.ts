@@ -13,9 +13,14 @@ import { Team } from './teams/team.model';
 import { Task } from './tasks/task.model';
 import { User } from './users/user.model';
 import { DayTask } from './day-tasks/day-task.model';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
@@ -32,6 +37,7 @@ import { DayTask } from './day-tasks/day-task.model';
       entities: [User, Team, Task, DayTask],
       synchronize: true,
     }),
+    AuthModule,
     UsersModule,
     TeamsModule,
     TasksModule,

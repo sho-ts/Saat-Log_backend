@@ -85,6 +85,7 @@ export interface Task {
 
 export interface User {
     userId: string;
+    authId: string;
     name: string;
     photoUrl: string;
     createdAt: DateTime;

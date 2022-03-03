@@ -31,6 +31,7 @@ type Task {
 
 type User {
   userId: String!
+  authId: String!
   name: String!
   photoUrl: String!
   createdAt: DateTime!

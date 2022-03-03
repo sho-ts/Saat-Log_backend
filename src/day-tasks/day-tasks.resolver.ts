@@ -1,10 +1,13 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { DayTasksService } from './day-tasks.service';
 import { DayTask } from './day-task.model';
 import { CreateDayTaskInput } from './dto/create-day-task.input';
 import { GetDayTaskInput } from './dto/get-day-task.input';
 import { GetAllDayTaskInput } from './dto/get-all-day-task.input';
+import { UseGuards } from '@nestjs/common';
+import { GraphqlAuthGuard } from '../auth/guards/gql-auth.guard';
 
+@UseGuards(GraphqlAuthGuard)
 @Resolver()
 export class DayTasksResolver {
   constructor(private dayTasksService: DayTasksService) { }

@@ -1,11 +1,14 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Task } from './task.model';
 import { TasksService } from './tasks.service';
 import { CreateTaskInput } from './dto/create-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
 import { GetTaskInput } from './dto/get-task.input';
 import { GetAllTaskInput } from './dto/get-all-task.input';
+import { UseGuards } from '@nestjs/common';
+import { GraphqlAuthGuard } from '../auth/guards/gql-auth.guard';
 
+@UseGuards(GraphqlAuthGuard)
 @Resolver(of => Task)
 export class TasksResolver {
   constructor(private tasksService: TasksService) { }
