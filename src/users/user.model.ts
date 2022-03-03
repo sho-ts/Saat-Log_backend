@@ -20,6 +20,10 @@ export class User {
 
   @Column()
   @Field()
+  authId: string;
+
+  @Column()
+  @Field()
   name: string;
 
   @Column({ nullable: true })
