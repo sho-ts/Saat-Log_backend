@@ -5,6 +5,9 @@ export class CreateUserInput {
   @Field()
   name: string;
 
+  @Field()
+  authId: string;
+
   @Field({ nullable: true })
   photoURL?: string;
 }

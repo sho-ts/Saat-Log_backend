@@ -27,11 +27,10 @@ export class UsersService {
     });
   }
 
-  async create(params: CreateUserInput, authId: string) {
+  async create(params: CreateUserInput) {
     const user = this.usersRepository.create({
       ...params,
       userId: ulid(),
-      authId,
     });
 
     return await this.usersRepository.save(user);

@@ -7,16 +7,17 @@ import { UseGuards } from '@nestjs/common';
 import { GraphqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { GuardResponse } from '../auth/guard-response';
 
-@UseGuards(GraphqlAuthGuard)
 @Resolver((of) => User)
 export class UsersResolver {
   constructor(private userService: UsersService) {}
 
+  @UseGuards(GraphqlAuthGuard)
   @Query((returns) => User)
   async getUser(@Args('userId') userId: string) {
     return await this.userService.read(userId);
   }
 
+  @UseGuards(GraphqlAuthGuard)
   @Query((returns) => User)
   async getCurrentUser(@GuardResponse() user) {
     return await this.userService.readByAuth(user.sub);
@@ -24,17 +25,18 @@ export class UsersResolver {
 
   @Mutation((returns) => User)
   async createUser(
-    @Args('params') params: CreateUserInput,
-    @GuardResponse() user,
+    @Args('params') params: CreateUserInput
   ) {
-    return this.userService.create(params, user.sub);
+    return this.userService.create(params);
   }
 
+  @UseGuards(GraphqlAuthGuard)
   @Mutation((returns) => User)
   async updateUser(@Args('params') params: UpdateUserInput) {
     return this.userService.update(params);
   }
 
+  @UseGuards(GraphqlAuthGuard)
   @Mutation((returns) => Boolean)
   async deleteUser(@Args('userId') userId: string) {
     return this.userService.delete(userId);
