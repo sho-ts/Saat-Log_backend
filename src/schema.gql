@@ -85,6 +85,7 @@ type Mutation {
 
 input CreateUserInput {
   name: String!
+  authId: String!
   photoURL: String
 }
 

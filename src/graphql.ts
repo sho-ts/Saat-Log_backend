@@ -31,6 +31,7 @@ export interface GetAllDayTaskInput {
 
 export interface CreateUserInput {
     name: string;
+    authId: string;
     photoURL?: Nullable<string>;
 }
 
