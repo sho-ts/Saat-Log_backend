@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DayTask } from './day-task.model';
+import { Task } from '../tasks/task.model';
 import { CreateDayTaskInput } from './dto/create-day-task.input';
 import { GetDayTaskInput } from './dto/get-day-task.input';
 import { GetAllDayTaskInput } from './dto/get-all-day-task.input';
@@ -12,6 +13,8 @@ export class DayTasksService {
   constructor(
     @InjectRepository(DayTask)
     private dayTasksRepository: Repository<DayTask>,
+    @InjectRepository(Task)
+    private taskRepository: Repository<Task>,
   ) {}
 
   async read(params: GetDayTaskInput, authId: string) {
@@ -43,10 +46,18 @@ export class DayTasksService {
       taskId: params.taskId,
       date: new Date(params.year, params.month - 1, params.day),
       target: params.target,
-      authId
+      authId,
     });
 
     await this.dayTasksRepository.save(dayTask);
+
+    const task = await this.taskRepository.findOne({
+      taskId: params.taskId,
+      userId: params.userId,
+      authId,
+    });
+
+    dayTask.task = task;
 
     return dayTask;
   }
@@ -55,7 +66,7 @@ export class DayTasksService {
     const dayTask = await this.dayTasksRepository.findOne({
       dayTaskId: params.dayTaskId,
       userId: params.userId,
-      authId
+      authId,
     });
 
     if (!dayTask) return false;

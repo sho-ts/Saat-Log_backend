@@ -30,12 +30,18 @@ export class DayTasksResolver {
   }
 
   @Mutation((returns) => DayTask)
-  async addDayTask(@Args('params') params: CreateDayTaskInput, @GuardResponse() user) {
+  async addDayTask(
+    @Args('params', { nullable: true }) params: CreateDayTaskInput,
+    @GuardResponse() user,
+  ) {
     return await this.dayTasksService.create(params, user.sub);
   }
 
   @Mutation((returns) => Boolean)
-  async deleteDayTask(@Args('params') params: GetDayTaskInput, @GuardResponse() user) {
+  async deleteDayTask(
+    @Args('params') params: GetDayTaskInput,
+    @GuardResponse() user,
+  ) {
     return await this.dayTasksService.delete(params, user.sub);
   }
 }
