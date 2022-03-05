@@ -77,6 +77,7 @@ export interface DayTask {
 export interface Task {
     taskId: string;
     name: string;
+    authId: string;
     createdAt: DateTime;
     updatedAt: DateTime;
     deletedAt: DateTime;
@@ -109,7 +110,7 @@ export interface IMutation {
     addTask(params: CreateTaskInput): Task | Promise<Task>;
     updateTask(params: UpdateTaskInput): Task | Promise<Task>;
     deleteTask(params: GetTaskInput): boolean | Promise<boolean>;
-    addDayTask(params: CreateDayTaskInput): DayTask | Promise<DayTask>;
+    addDayTask(params?: Nullable<CreateDayTaskInput>): DayTask | Promise<DayTask>;
     deleteDayTask(params: GetDayTaskInput): boolean | Promise<boolean>;
 }
 
