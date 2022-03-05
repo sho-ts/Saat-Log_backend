@@ -41,7 +41,9 @@ type User {
 
 type Query {
   getUser(userId: String!): User!
+  getCurrentUser: User!
   getTask(params: GetTaskInput!): Task!
+  getTaskByAuth(params: GetTaskInput!): Task!
   getAllTasks(params: GetAllTaskInput!): [Task!]!
   getDayTask(params: GetDayTaskInput!): DayTask!
   getAllDayTasks(params: GetAllDayTaskInput!): [DayTask!]!
@@ -49,7 +51,6 @@ type Query {
 
 input GetTaskInput {
   taskId: String!
-  userId: String!
 }
 
 input GetAllTaskInput {
