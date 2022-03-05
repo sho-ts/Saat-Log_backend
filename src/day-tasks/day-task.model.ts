@@ -28,8 +28,7 @@ export class DayTask {
   @JoinColumn({ name: 'userId' })
   userId: string;
 
-  @ManyToOne(type => User, (user) => user.authId)
-  @JoinColumn({ name: 'authId' })
+  @Column()
   authId: string;
 
   @Column({ default: false })
