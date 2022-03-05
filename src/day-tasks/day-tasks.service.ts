@@ -12,53 +12,51 @@ export class DayTasksService {
   constructor(
     @InjectRepository(DayTask)
     private dayTasksRepository: Repository<DayTask>,
-  ) { }
+  ) {}
 
-  async read(params: GetDayTaskInput) {
+  async read(params: GetDayTaskInput, authId: string) {
     return await this.dayTasksRepository
       .createQueryBuilder('dayTask')
-      .innerJoinAndMapOne(
-        'dayTask.task',
-        'dayTask.taskId',
-        'task'
-      )
+      .innerJoinAndMapOne('dayTask.task', 'dayTask.taskId', 'task')
       .where('dayTask.dayTaskId = :dayTaskId', { dayTaskId: params.dayTaskId })
       .andWhere('dayTask.userId = :userId', { userId: params.userId })
+      .andWhere('dayTask.authId = :authId', { authId })
       .getOne();
   }
 
-  async readAll(params: GetAllDayTaskInput) {
+  async readAll(params: GetAllDayTaskInput, authId: string) {
     return await this.dayTasksRepository
       .createQueryBuilder('dayTask')
-      .innerJoinAndMapOne(
-        'dayTask.task',
-        'dayTask.taskId',
-        'task'
-      )
+      .innerJoinAndMapOne('dayTask.task', 'dayTask.taskId', 'task')
       .where('dayTask.userId = :userId', { userId: params.userId })
-      .andWhere('dayTask.date = :date', { date: new Date(params.year, params.month - 1, params.day) })
+      .andWhere('dayTask.date = :date', {
+        date: new Date(params.year, params.month - 1, params.day),
+      })
+      .andWhere('dayTask.authId = :authId', { authId })
       .getMany();
   }
 
-  async create(params: CreateDayTaskInput) {
+  async create(params: CreateDayTaskInput, authId: string) {
     const dayTask = this.dayTasksRepository.create({
       dayTaskId: ulid(),
       userId: params.userId,
       taskId: params.taskId,
       date: new Date(params.year, params.month - 1, params.day),
-      target: params.target
-    })
+      target: params.target,
+      authId
+    });
 
     await this.dayTasksRepository.save(dayTask);
 
     return dayTask;
   }
 
-  async delete(params: GetDayTaskInput) {
+  async delete(params: GetDayTaskInput, authId: string) {
     const dayTask = await this.dayTasksRepository.findOne({
       dayTaskId: params.dayTaskId,
       userId: params.userId,
-    })
+      authId
+    });
 
     if (!dayTask) return false;
 

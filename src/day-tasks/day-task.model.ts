@@ -28,6 +28,10 @@ export class DayTask {
   @JoinColumn({ name: 'userId' })
   userId: string;
 
+  @ManyToOne(type => User, (user) => user.authId)
+  @JoinColumn({ name: 'authId' })
+  authId: string;
+
   @Column({ default: false })
   @Field()
   isActive: boolean;

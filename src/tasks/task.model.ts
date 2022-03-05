@@ -28,6 +28,10 @@ export class Task {
   @JoinColumn({ name: 'userId' })
   userId: string;
 
+  @ManyToOne(type => User, (user) => user.authId)
+  @JoinColumn({ name: 'authId' })
+  authId: string;
+
   @OneToMany(type => DayTask, dayTask => dayTask.taskId)
   dayTasks: DayTask[];
 
