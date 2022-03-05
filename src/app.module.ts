@@ -27,6 +27,10 @@ import { ConfigModule } from '@nestjs/config';
       definitions: {
         path: join(process.cwd(), 'src/graphql.ts'),
       },
+      cors: {
+        origin: process.env.APP_SITE_URL,
+        credentials: true,
+      }
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
