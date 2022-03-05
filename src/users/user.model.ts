@@ -18,7 +18,7 @@ export class User {
   @Field()
   userId: string;
 
-  @Column()
+  @Column({ unique: true })
   @Field()
   authId: string;
 
@@ -30,10 +30,10 @@ export class User {
   @Field()
   photoUrl?: string;
 
-  @OneToMany(type => Task, task => task.userId)
+  @OneToMany((type) => Task, (task) => task.userId)
   tasks: Task[];
 
-  @OneToMany(type => DayTask, dayTask => dayTask.userId)
+  @OneToMany((type) => DayTask, (dayTask) => dayTask.userId)
   dayTasks: DayTask[];
 
   @CreateDateColumn()
