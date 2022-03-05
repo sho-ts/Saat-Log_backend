@@ -28,6 +28,9 @@ export class DayTask {
   @JoinColumn({ name: 'userId' })
   userId: string;
 
+  @Column()
+  authId: string;
+
   @Column({ default: false })
   @Field()
   isActive: boolean;

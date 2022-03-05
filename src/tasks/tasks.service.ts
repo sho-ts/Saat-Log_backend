@@ -17,23 +17,34 @@ export class TasksService {
 
   async read(params: GetTaskInput) {
     return await this.tasksRepository.findOne({
-      userId: params.userId,
       taskId: params.taskId,
       deletedAt: null
     })
   }
 
-  async readAll(params: GetAllTaskInput) {
+  async readByAuth(params: GetTaskInput, authId: string) {
+    return await this.tasksRepository.findOne({
+      taskId: params.taskId,
+      authId,
+      deletedAt: null,
+    });
+  }
+
+  async readAll(params: GetAllTaskInput, authId: string) {
     return await this.tasksRepository.find({
-      where: { userId: params.userId, },
+      where: {
+        userId: params.userId,
+        authId
+      },
       take: 10,
       skip: params.paged ? params.paged - 1 : 0
     });
   }
 
-  async update(params: UpdateTaskInput) {
+  async update(params: UpdateTaskInput, authId: string) {
     const task = await this.tasksRepository.findOne({
       userId: params.userId,
+      authId,
       taskId: params.taskId,
       deletedAt: null
     });
@@ -43,19 +54,20 @@ export class TasksService {
     return this.tasksRepository.save(task);
   }
 
-  async create(params: CreateTaskInput) {
+  async create(params: CreateTaskInput, authId: string) {
     const task = this.tasksRepository.create({
       userId: params.userId,
       taskId: ulid(),
-      name: params.name
+      name: params.name,
+      authId,
     });
 
     return await this.tasksRepository.save(task);
   }
 
-  async delete(params: GetTaskInput) {
+  async delete(params: GetTaskInput, authId: string) {
     const task = await this.tasksRepository.findOne({
-      userId: params.userId,
+      authId,
       taskId: params.taskId,
       deletedAt: false,
     });

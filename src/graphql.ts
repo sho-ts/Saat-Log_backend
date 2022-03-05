@@ -9,7 +9,6 @@
 /* eslint-disable */
 export interface GetTaskInput {
     taskId: string;
-    userId: string;
 }
 
 export interface GetAllTaskInput {
@@ -78,6 +77,7 @@ export interface DayTask {
 export interface Task {
     taskId: string;
     name: string;
+    authId: string;
     createdAt: DateTime;
     updatedAt: DateTime;
     deletedAt: DateTime;
@@ -95,7 +95,9 @@ export interface User {
 
 export interface IQuery {
     getUser(userId: string): User | Promise<User>;
+    getCurrentUser(): User | Promise<User>;
     getTask(params: GetTaskInput): Task | Promise<Task>;
+    getTaskByAuth(params: GetTaskInput): Task | Promise<Task>;
     getAllTasks(params: GetAllTaskInput): Task[] | Promise<Task[]>;
     getDayTask(params: GetDayTaskInput): DayTask | Promise<DayTask>;
     getAllDayTasks(params: GetAllDayTaskInput): DayTask[] | Promise<DayTask[]>;
@@ -108,7 +110,7 @@ export interface IMutation {
     addTask(params: CreateTaskInput): Task | Promise<Task>;
     updateTask(params: UpdateTaskInput): Task | Promise<Task>;
     deleteTask(params: GetTaskInput): boolean | Promise<boolean>;
-    addDayTask(params: CreateDayTaskInput): DayTask | Promise<DayTask>;
+    addDayTask(params?: Nullable<CreateDayTaskInput>): DayTask | Promise<DayTask>;
     deleteDayTask(params: GetDayTaskInput): boolean | Promise<boolean>;
 }
 

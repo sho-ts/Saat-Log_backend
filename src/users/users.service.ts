@@ -11,19 +11,27 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-  ) { }
+  ) {}
 
   async read(userId: string): Promise<User> {
     return await this.usersRepository.findOne({
       userId,
-      deletedAt: null
+      deletedAt: null,
     });
   }
 
-  async create(params: CreateUserInput) {
+  async readByAuth(authId: string): Promise<User> {
+    return await this.usersRepository.findOne({
+      authId,
+      deletedAt: null,
+    });
+  }
+
+  async create(params: CreateUserInput, authId: string) {
     const user = this.usersRepository.create({
       ...params,
-      userId: ulid()
+      userId: ulid(),
+      authId,
     });
 
     return await this.usersRepository.save(user);

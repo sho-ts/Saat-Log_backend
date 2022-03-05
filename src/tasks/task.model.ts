@@ -24,11 +24,15 @@ export class Task {
   @Field()
   name: string;
 
-  @ManyToOne(type => User, (user) => user.userId)
+  @ManyToOne((type) => User, (user) => user.tasks)
   @JoinColumn({ name: 'userId' })
   userId: string;
 
-  @OneToMany(type => DayTask, dayTask => dayTask.taskId)
+  @Column()
+  @Field()
+  authId: string;
+
+  @OneToMany((type) => DayTask, (dayTask) => dayTask.taskId)
   dayTasks: DayTask[];
 
   @CreateDateColumn()

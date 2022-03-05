@@ -24,6 +24,7 @@ scalar DateTime
 type Task {
   taskId: String!
   name: String!
+  authId: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   deletedAt: DateTime!
@@ -41,7 +42,9 @@ type User {
 
 type Query {
   getUser(userId: String!): User!
+  getCurrentUser: User!
   getTask(params: GetTaskInput!): Task!
+  getTaskByAuth(params: GetTaskInput!): Task!
   getAllTasks(params: GetAllTaskInput!): [Task!]!
   getDayTask(params: GetDayTaskInput!): DayTask!
   getAllDayTasks(params: GetAllDayTaskInput!): [DayTask!]!
@@ -49,7 +52,6 @@ type Query {
 
 input GetTaskInput {
   taskId: String!
-  userId: String!
 }
 
 input GetAllTaskInput {
@@ -77,7 +79,7 @@ type Mutation {
   addTask(params: CreateTaskInput!): Task!
   updateTask(params: UpdateTaskInput!): Task!
   deleteTask(params: GetTaskInput!): Boolean!
-  addDayTask(params: CreateDayTaskInput!): DayTask!
+  addDayTask(params: CreateDayTaskInput): DayTask!
   deleteDayTask(params: GetDayTaskInput!): Boolean!
 }
 

@@ -5,7 +5,7 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { UseGuards } from '@nestjs/common';
 import { GraphqlAuthGuard } from '../auth/guards/gql-auth.guard';
-
+import { GuardResponse } from '../auth/guard-response';
 
 @UseGuards(GraphqlAuthGuard)
 @Resolver((of) => User)
@@ -17,9 +17,17 @@ export class UsersResolver {
     return await this.userService.read(userId);
   }
 
+  @Query((returns) => User)
+  async getCurrentUser(@GuardResponse() user) {
+    return await this.userService.readByAuth(user.sub);
+  }
+
   @Mutation((returns) => User)
-  async createUser(@Args('params') params: CreateUserInput) {
-    return this.userService.create(params);
+  async createUser(
+    @Args('params') params: CreateUserInput,
+    @GuardResponse() user,
+  ) {
+    return this.userService.create(params, user.sub);
   }
 
   @Mutation((returns) => User)
