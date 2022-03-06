@@ -13,18 +13,16 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async read(userId: string): Promise<User> {
-    return await this.usersRepository.findOne({
-      userId,
-      deletedAt: null,
-    });
-  }
-
-  async readByAuth(authId: string): Promise<User> {
-    return await this.usersRepository.findOne({
-      authId,
-      deletedAt: null,
-    });
+  async read(authId: string, userId?: string): Promise<User> {
+    return userId
+      ? await this.usersRepository.findOne({
+          userId,
+          deletedAt: null,
+        })
+      : await this.usersRepository.findOne({
+          authId,
+          deletedAt: null,
+        });
   }
 
   async create(params: CreateUserInput) {

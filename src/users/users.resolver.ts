@@ -13,20 +13,15 @@ export class UsersResolver {
 
   @UseGuards(GraphqlAuthGuard)
   @Query((returns) => User)
-  async getUser(@Args('userId') userId: string) {
-    return await this.userService.read(userId);
-  }
-
-  @UseGuards(GraphqlAuthGuard)
-  @Query((returns) => User)
-  async getCurrentUser(@GuardResponse() user) {
-    return await this.userService.readByAuth(user.sub);
+  async getUser(
+    @GuardResponse() user,
+    @Args('userId', { nullable: true }) userId?: string,
+  ) {
+    return await this.userService.read(user.sub, userId);
   }
 
   @Mutation((returns) => User)
-  async createUser(
-    @Args('params') params: CreateUserInput
-  ) {
+  async createUser(@Args('params') params: CreateUserInput) {
     return this.userService.create(params);
   }
 
