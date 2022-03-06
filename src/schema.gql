@@ -41,10 +41,8 @@ type User {
 }
 
 type Query {
-  getUser(userId: String!): User!
-  getCurrentUser: User!
+  getUser(userId: String): User!
   getTask(params: GetTaskInput!): Task!
-  getTaskByAuth(params: GetTaskInput!): Task!
   getAllTasks(params: GetAllTaskInput!): [Task!]!
   getDayTask(params: GetDayTaskInput!): DayTask!
   getAllDayTasks(params: GetAllDayTaskInput!): [DayTask!]!
@@ -52,6 +50,7 @@ type Query {
 
 input GetTaskInput {
   taskId: String!
+  self: Boolean
 }
 
 input GetAllTaskInput {
@@ -85,6 +84,7 @@ type Mutation {
 
 input CreateUserInput {
   name: String!
+  authId: String!
   photoURL: String
 }
 

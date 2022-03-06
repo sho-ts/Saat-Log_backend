@@ -15,16 +15,8 @@ export class TasksResolver {
   constructor(private tasksService: TasksService) {}
 
   @Query((returns) => Task)
-  async getTask(@Args('params') params: GetTaskInput) {
-    return await this.tasksService.read(params);
-  }
-
-  @Query((returns) => Task)
-  async getTaskByAuth(
-    @Args('params') params: GetTaskInput,
-    @GuardResponse() user,
-  ) {
-    return await this.tasksService.readByAuth(params, user.sub);
+  async getTask(@Args('params') params: GetTaskInput, @GuardResponse() user) {
+    return await this.tasksService.read(params, user.sub);
   }
 
   @Query((returns) => [Task])

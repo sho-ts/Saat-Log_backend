@@ -13,31 +13,29 @@ export class TasksService {
   constructor(
     @InjectRepository(Task)
     private tasksRepository: Repository<Task>,
-  ) { }
+  ) {}
 
-  async read(params: GetTaskInput) {
-    return await this.tasksRepository.findOne({
-      taskId: params.taskId,
-      deletedAt: null
-    })
-  }
-
-  async readByAuth(params: GetTaskInput, authId: string) {
-    return await this.tasksRepository.findOne({
-      taskId: params.taskId,
-      authId,
-      deletedAt: null,
-    });
+  async read(params: GetTaskInput, authId: string) {
+    return params.self
+      ? await this.tasksRepository.findOne({
+          taskId: params.taskId,
+          authId,
+          deletedAt: null,
+        })
+      : await this.tasksRepository.findOne({
+          taskId: params.taskId,
+          deletedAt: null,
+        });
   }
 
   async readAll(params: GetAllTaskInput, authId: string) {
     return await this.tasksRepository.find({
       where: {
         userId: params.userId,
-        authId
+        authId,
       },
       take: 10,
-      skip: params.paged ? params.paged - 1 : 0
+      skip: params.paged ? params.paged - 1 : 0,
     });
   }
 
@@ -46,7 +44,7 @@ export class TasksService {
       userId: params.userId,
       authId,
       taskId: params.taskId,
-      deletedAt: null
+      deletedAt: null,
     });
 
     task.name = params.name;
