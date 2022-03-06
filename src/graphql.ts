@@ -9,6 +9,7 @@
 /* eslint-disable */
 export interface GetTaskInput {
     taskId: string;
+    self?: Nullable<boolean>;
 }
 
 export interface GetAllTaskInput {
@@ -95,10 +96,8 @@ export interface User {
 }
 
 export interface IQuery {
-    getUser(userId: string): User | Promise<User>;
-    getCurrentUser(): User | Promise<User>;
+    getUser(userId?: Nullable<string>): User | Promise<User>;
     getTask(params: GetTaskInput): Task | Promise<Task>;
-    getTaskByAuth(params: GetTaskInput): Task | Promise<Task>;
     getAllTasks(params: GetAllTaskInput): Task[] | Promise<Task[]>;
     getDayTask(params: GetDayTaskInput): DayTask | Promise<DayTask>;
     getAllDayTasks(params: GetAllDayTaskInput): DayTask[] | Promise<DayTask[]>;
